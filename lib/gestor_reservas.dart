@@ -9,38 +9,55 @@ Set<String> codigosReservas = {};
 Map<String, int> cantidadPorTipoHabitacion = {};
 
 void registrarReserva() {
-  print('\n--- Registrar Reserva ---');
+  print('\n--- REGISTRAR RESERVA ---');
 
   stdout.write('Código de la reserva: ');
-  String codigo = stdin.readLineSync() ?? '';
+  String codigo = (stdin.readLineSync() ?? '').trim();
+
+  if (codigo.isEmpty) {
+    print('Error: el código no puede estar vacío.');
+    return;
+  }
 
   if (codigosReservas.contains(codigo)) {
-    print('Ya existe una reserva con ese código.');
+    print('Error: ya existe una reserva con ese código.');
     return;
   }
 
   stdout.write('Nombre del huésped: ');
-  String nombre = stdin.readLineSync() ?? '';
+  String nombre = (stdin.readLineSync() ?? '').trim();
 
   stdout.write('Tipo de habitación: ');
-  String tipo = stdin.readLineSync() ?? '';
+  String tipo = (stdin.readLineSync() ?? '').trim();
 
   stdout.write('Cantidad de noches: ');
-  int noches = int.tryParse(stdin.readLineSync() ?? '') ?? 0;
+  int? nochesIngresadas = int.tryParse(stdin.readLineSync() ?? '');
 
   stdout.write('Precio por noche: ');
-  double precio = double.tryParse(stdin.readLineSync() ?? '') ?? 0;
+  double? precioIngresado = double.tryParse(stdin.readLineSync() ?? '');
 
-  if (codigo.isEmpty ||
-      nombre.isEmpty ||
-      tipo.isEmpty ||
-      noches <= 0 ||
-      precio <= 0) {
-    print('Datos inválidos. Revisa la información ingresada.');
+  if (nombre.isEmpty || tipo.isEmpty) {
+    print('Error: el nombre y el tipo  de habitación son obligatorios');
     return;
   }
 
-  Reserva nuevaReserva = Reserva(codigo, nombre, tipo, noches, precio);
+  if (nochesIngresadas == null || nochesIngresadas <= 0) {
+    print('Error: las noches deben ser un entero mayor que cero.');
+    return;
+  }
+
+  if (precioIngresado == null || precioIngresado <= 0) {
+    print('Error: el precio debe ser un número mayor que cero.');
+    return;
+  }
+
+  Reserva nuevaReserva = Reserva(
+    codigo,
+    nombre,
+    tipo,
+    nochesIngresadas,
+    precioIngresado,
+  );
 
   reservas.add(nuevaReserva);
   codigosReservas.add(codigo);
