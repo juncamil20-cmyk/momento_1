@@ -202,3 +202,48 @@ void modificarReserva() {
   print('\nReserva modificada correctamente.');
   reservaEncontrada.mostrarInformacion();
 }
+
+void eliminarReserva() {
+  print('\n--- ELIMINAR RESERVA ---');
+
+  stdout.write('Ingrese el código de la reserva: ');
+  String codigo = (stdin.readLineSync() ?? '').trim();
+
+  Reserva? reservaEncontrada;
+
+  for (Reserva reserva in reservas) {
+    if (reserva.codigo == codigo) {
+      reservaEncontrada = reserva;
+      break;
+    }
+  }
+
+  if (reservaEncontrada == null) {
+    print('No existe una reserva con ese código');
+    return;
+  }
+
+  print('\nReserva que se eliminará');
+  reservaEncontrada.mostrarInformacion();
+
+  stdout.write('\n¿Desea eliminar esta reserva? (s/n)');
+  String confirmacion = (stdin.readLineSync() ?? '').trim().toLowerCase();
+
+  if (confirmacion != 's') {
+    print('Eliminación cancelada.');
+    return;
+  }
+
+  reservas.remove(reservaEncontrada);
+  codigosReservas.remove(reservaEncontrada.codigo);
+
+  String tipo = reservaEncontrada.tipoHabitacion;
+
+  cantidadPorTipoHabitacion[tipo] = cantidadPorTipoHabitacion[tipo]! - 1;
+
+  if (cantidadPorTipoHabitacion[tipo] == 0) {
+    cantidadPorTipoHabitacion.remove(tipo);
+  }
+
+  print('\nReserva eliminada correctamente');
+}
