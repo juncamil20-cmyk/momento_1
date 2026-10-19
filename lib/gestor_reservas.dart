@@ -240,7 +240,7 @@ void eliminarReserva() {
   print('\n--- ELIMINAR RESERVA ---');
 
   stdout.write('Ingrese el código de la reserva: ');
-  String codigo = (stdin.readLineSync() ?? '').trim();
+  String codigo = (stdin.readLineSync() ?? '').trim().toUpperCase();
 
   Reserva? reservaEncontrada;
 
@@ -272,10 +272,12 @@ void eliminarReserva() {
 
   String tipo = reservaEncontrada.tipoHabitacion;
 
-  cantidadPorTipoHabitacion[tipo] = cantidadPorTipoHabitacion[tipo]! - 1;
+  if (cantidadPorTipoHabitacion.containsKey(tipo)) {
+    cantidadPorTipoHabitacion[tipo] = cantidadPorTipoHabitacion[tipo]! - 1;
 
-  if (cantidadPorTipoHabitacion[tipo] == 0) {
-    cantidadPorTipoHabitacion.remove(tipo);
+    if (cantidadPorTipoHabitacion[tipo] == 0) {
+      cantidadPorTipoHabitacion.remove(tipo);
+    }
   }
 
   print('\nReserva eliminada correctamente');
