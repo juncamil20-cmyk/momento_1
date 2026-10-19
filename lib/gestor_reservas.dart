@@ -33,6 +33,14 @@ void registrarReserva() {
   String tipo = tipoIngresado.toLowerCase();
   tipo = tipo.isEmpty ? '' : '${tipo[0].toUpperCase()}${tipo.substring(1)}';
 
+  List<String> tiposPermitidos = ['Sencilla', 'Doble', 'Suite', 'Familiar'];
+
+  if (!tiposPermitidos.contains(tipo)) {
+    print('Error: tipo de habitación no válido');
+    print('Tipos permitidos: ${tiposPermitidos.join(',')}');
+    return;
+  }
+
   stdout.write('Cantidad de noches: ');
   int? nochesIngresadas = int.tryParse(stdin.readLineSync() ?? '');
 
