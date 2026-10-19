@@ -101,6 +101,11 @@ void mostrarReservas() {
 void buscarReservaPorNombre() {
   print('\n--BUSCAR RESERVA POR HUESPED ---');
 
+  if (reservas.isEmpty) {
+    print('No hay reservas registradas para buscar.');
+    return;
+  }
+
   stdout.write('Ingrese el nombre del huesped: ');
   String nombreBuscado = (stdin.readLineSync() ?? '').trim().toLowerCase();
 
@@ -127,8 +132,13 @@ void buscarReservaPorNombre() {
 void buscarReservaPorCodigo() {
   print('\n--BUSCAR RESERVA ---');
 
+  if (reservas.isEmpty) {
+    print('No hay reservas registradas para buscar.');
+    return;
+  }
+
   stdout.write('Ingrese el código de la reserva: ');
-  String codigo = (stdin.readLineSync() ?? '').trim();
+  String codigo = (stdin.readLineSync() ?? '').trim().toUpperCase();
 
   bool encontrada = false;
 

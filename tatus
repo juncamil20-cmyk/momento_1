@@ -1,0 +1,11 @@
+[33m23e1a8c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m docs: documenta el sistema de reservas y conceptos de Dart
+[33m48ec323[m test: verifica el calculo del total de uan reserva
+[33maafcc3f[m FEAT: generar reporte general de reservas del hotel
+[33m36c8bc4[m FEAT: implementacion de eliminacion de reservas
+[33m087d0a2[m feat: permite modificar datos de las reservas
+[33m53b278a[m feat: implementacion de busqueda por nombre de huesped
+[33m1f4022d[m feat: implementada la bisqueda por codigo de reserva
+[33m5047e10[m Fix: valida datos ingresadoS en las reservas
+[33me4c4feb[m feat: crea menu principal y conecta opciones de reservas
+[33m970ee04[m feat:implementa registro y consulta de reservas
+[33me176855[m feat: crea estrcutura inicial del proyecyo y clase reserva
