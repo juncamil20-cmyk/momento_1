@@ -28,7 +28,10 @@ void registrarReserva() {
   String nombre = (stdin.readLineSync() ?? '').trim();
 
   stdout.write('Tipo de habitación: ');
-  String tipo = (stdin.readLineSync() ?? '').trim();
+  String tipoIngresado = (stdin.readLineSync() ?? '').trim();
+
+  String tipo = tipoIngresado.toLowerCase();
+  tipo = tipo.isEmpty ? '' : '${tipo[0].toUpperCase()}${tipo.substring(1)}';
 
   stdout.write('Cantidad de noches: ');
   int? nochesIngresadas = int.tryParse(stdin.readLineSync() ?? '');
