@@ -247,3 +247,31 @@ void eliminarReserva() {
 
   print('\nReserva eliminada correctamente');
 }
+
+void mostrarResumen() {
+  print('\n--- RESUMEN GENERAL DEL HOTEL ---');
+
+  if (reservas.isEmpty) {
+    print('No hay reservas registradas para generar el reporte');
+    return;
+  }
+
+  int totalReservas = reservas.length;
+  int totalNoches = 0;
+  double ingresosTotales = 0;
+
+  for (Reserva reserva in reservas) {
+    totalNoches += reserva.noches;
+    ingresosTotales += reserva.calcularTotal();
+  }
+
+  print('\nTotal de reservas: $totalReservas');
+  print('Total de noches reservadas: $totalNoches');
+  print('Ingresos potenciales: \$${ingresosTotales.toStringAsFixed(2)}');
+
+  print('\n--- RESERVAS POR TIPO DE HABITACIÓN ---');
+
+  for (String tipo in cantidadPorTipoHabitacion.keys) {
+    print('$tipo: ${cantidadPorTipoHabitacion[tipo]} reserva(s)');
+  }
+}
