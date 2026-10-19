@@ -302,9 +302,18 @@ void mostrarResumen() {
   int totalNoches = 0;
   double ingresosTotales = 0;
 
+  Map<String, int> reservasPorTipo = {};
+
   for (Reserva reserva in reservas) {
     totalNoches += reserva.noches;
     ingresosTotales += reserva.calcularTotal();
+
+    if (reservasPorTipo.containsKey(reserva.tipoHabitacion)) {
+      reservasPorTipo[reserva.tipoHabitacion] =
+          reservasPorTipo[reserva.tipoHabitacion]! + 1;
+    } else {
+      reservasPorTipo[reserva.tipoHabitacion] = 1;
+    }
   }
 
   print('\nTotal de reservas: $totalReservas');
@@ -313,7 +322,7 @@ void mostrarResumen() {
 
   print('\n--- RESERVAS POR TIPO DE HABITACIÓN ---');
 
-  for (String tipo in cantidadPorTipoHabitacion.keys) {
-    print('$tipo: ${cantidadPorTipoHabitacion[tipo]} reserva(s)');
+  for (String tipo in reservasPorTipo.keys) {
+    print('$tipo: ${reservasPorTipo[tipo]} reserva(s)');
   }
 }
