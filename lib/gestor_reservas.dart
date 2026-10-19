@@ -104,10 +104,15 @@ void buscarReservaPorNombre() {
   stdout.write('Ingrese el nombre del huesped: ');
   String nombreBuscado = (stdin.readLineSync() ?? '').trim().toLowerCase();
 
+  if (nombreBuscado.isEmpty) {
+    print('Error: debe ingresar un nombre para buscar');
+    return;
+  }
+
   bool encontrada = false;
 
   for (Reserva reserva in reservas) {
-    if (reserva.nombreHuesped.toLowerCase() == nombreBuscado) {
+    if (reserva.nombreHuesped.toLowerCase().contains(nombreBuscado)) {
       print('\nReserva encontrada:');
       reserva.mostrarInformacion();
       encontrada = true;
