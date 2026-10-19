@@ -86,6 +86,27 @@ void mostrarReservas() {
   }
 }
 
+void buscarReservaPorNombre() {
+  print('\n--BUSCAR RESERVA POR HUESPED ---');
+
+  stdout.write('Ingrese el nombre del huesped: ');
+  String nombreBuscado = (stdin.readLineSync() ?? '').trim().toLowerCase();
+
+  bool encontrada = false;
+
+  for (Reserva reserva in reservas) {
+    if (reserva.nombreHuesped.toLowerCase() == nombreBuscado) {
+      print('\nReserva encontrada:');
+      reserva.mostrarInformacion();
+      encontrada = true;
+    }
+  }
+
+  if (!encontrada) {
+    print('\nNo se encontraron reservas para ese huésped.');
+  }
+}
+
 void buscarReservaPorCodigo() {
   print('\n--BUSCAR RESERVA ---');
 

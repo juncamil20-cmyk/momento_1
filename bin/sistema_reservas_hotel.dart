@@ -13,6 +13,7 @@ void main(List<String> arguments) {
     print('1. Registrar reserva');
     print('2. Consultar reservas');
     print('3. Buscar reserva por código');
+    print('4. Buscar reserva por nombre');
     print('0. Salir');
 
     stdout.write('\nSeleccione una opcion');
@@ -31,6 +32,10 @@ void main(List<String> arguments) {
 
       case 3:
         buscarReservaPorCodigo();
+        break;
+
+      case 4:
+        buscarReservaPorNombre();
         break;
 
       case 0:
