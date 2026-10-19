@@ -85,3 +85,25 @@ void mostrarReservas() {
     reserva.mostrarInformacion();
   }
 }
+
+void buscarReservaPorCodigo() {
+  print('\n--BUSCAR RESERVA ---');
+
+  stdout.write('Ingrese el código de la reserva: ');
+  String codigo = (stdin.readLineSync() ?? '').trim();
+
+  bool encontrada = false;
+
+  for (Reserva reserva in reservas) {
+    if (reserva.codigo == codigo) {
+      print('\nReserva encontrada:');
+      reserva.mostrarInformacion();
+      encontrada = true;
+      break;
+    }
+  }
+
+  if (!encontrada) {
+    print('\nNo existe una reserva con ese código.');
+  }
+}
