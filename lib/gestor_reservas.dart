@@ -12,7 +12,8 @@ void registrarReserva() {
   print('\n--- REGISTRAR RESERVA ---');
 
   stdout.write('Código de la reserva: ');
-  String codigo = (stdin.readLineSync() ?? '').trim();
+  String codigoIngresado = (stdin.readLineSync() ?? '').trim();
+  String codigo = codigoIngresado.toUpperCase();
 
   if (codigo.isEmpty) {
     print('Error: el código no puede estar vacío.');
