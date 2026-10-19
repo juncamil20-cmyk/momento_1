@@ -128,3 +128,77 @@ void buscarReservaPorCodigo() {
     print('\nNo existe una reserva con ese código.');
   }
 }
+
+void modificarReserva() {
+  print('\n--- MODIFICAR RESERVA ---');
+
+  stdout.write('Ingrese el código de la reserva: ');
+  String codigo = (stdin.readLineSync() ?? '').trim();
+
+  Reserva? reservaEncontrada;
+
+  for (Reserva reserva in reservas) {
+    if (reserva.codigo == codigo) {
+      reservaEncontrada = reserva;
+      break;
+    }
+  }
+
+  if (reservaEncontrada == null) {
+    print('No existe una reserva con ese código');
+    return;
+  }
+
+  print('\nDatos actuales');
+  reservaEncontrada.mostrarInformacion();
+
+  stdout.write('\nNuevo nombre del huésped: ');
+  String nombre = (stdin.readLineSync() ?? '').trim();
+
+  stdout.write('\nNuevo tipo de habitación: ');
+  String tipo = (stdin.readLineSync() ?? '').trim();
+
+  stdout.write('\nNueva cantidad de noches: ');
+  int? noches = int.tryParse(stdin.readLineSync() ?? '');
+
+  stdout.write('\nNuevo precio por noche: ');
+  double? precio = double.tryParse(stdin.readLineSync() ?? '');
+
+  if (nombre.isEmpty || tipo.isEmpty) {
+    print('Error: el nombre y la habitación son obligatorios');
+    return;
+  }
+
+  if (noches == null || noches <= 0) {
+    print('Error: las noches deben ser mayores que cero');
+    return;
+  }
+
+  if (precio == null || noches <= 0) {
+    print('Error: el precio debe ser mayor que cero.');
+    return;
+  }
+
+  String tipoAnterior = reservaEncontrada.tipoHabitacion;
+
+  reservaEncontrada.nombreHuesped = nombre;
+  reservaEncontrada.tipoHabitacion = tipo;
+  reservaEncontrada.noches = noches;
+  reservaEncontrada.precioPorNoche = precio;
+
+  cantidadPorTipoHabitacion[tipoAnterior] =
+      cantidadPorTipoHabitacion[tipoAnterior]! - 1;
+
+  if (cantidadPorTipoHabitacion[tipoAnterior] == 0) {
+    cantidadPorTipoHabitacion.remove(tipoAnterior);
+  }
+
+  if (cantidadPorTipoHabitacion.containsKey(tipo)) {
+    cantidadPorTipoHabitacion[tipo] = cantidadPorTipoHabitacion[tipo]! + 1;
+  } else {
+    cantidadPorTipoHabitacion[tipo] = 1;
+  }
+
+  print('\nReserva modificada correctamente.');
+  reservaEncontrada.mostrarInformacion();
+}
