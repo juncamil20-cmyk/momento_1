@@ -224,9 +224,6 @@ void modificarReserva() {
   reservaEncontrada.noches = noches;
   reservaEncontrada.precioPorNoche = precio;
 
-  cantidadPorTipoHabitacion[tipoAnterior] =
-      cantidadPorTipoHabitacion[tipoAnterior]! - 1;
-
   if (tipoAnterior != tipo) {
     cantidadPorTipoHabitacion[tipoAnterior] =
         cantidadPorTipoHabitacion[tipoAnterior]! - 1;
