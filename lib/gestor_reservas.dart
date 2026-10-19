@@ -150,7 +150,7 @@ void modificarReserva() {
   print('\n--- MODIFICAR RESERVA ---');
 
   stdout.write('Ingrese el código de la reserva: ');
-  String codigo = (stdin.readLineSync() ?? '').trim();
+  String codigo = (stdin.readLineSync() ?? '').trim().toUpperCase();
 
   Reserva? reservaEncontrada;
 
@@ -173,7 +173,12 @@ void modificarReserva() {
   String nombre = (stdin.readLineSync() ?? '').trim();
 
   stdout.write('\nNuevo tipo de habitación: ');
-  String tipo = (stdin.readLineSync() ?? '').trim();
+  String tipoIngresado = (stdin.readLineSync() ?? '').trim();
+
+  String tipo = tipoIngresado.toLowerCase();
+  tipo = tipo.isEmpty ? '' : '${tipo[0].toUpperCase()}${tipo.substring(1)}';
+
+  List<String> tiposPermitidos = ['Sencilla', 'Doble', 'Suite', 'Familiar'];
 
   stdout.write('\nNueva cantidad de noches: ');
   int? noches = int.tryParse(stdin.readLineSync() ?? '');
@@ -186,12 +191,18 @@ void modificarReserva() {
     return;
   }
 
+  if (!tiposPermitidos.contains(tipo)) {
+    print('Error: tipo de habitación no válido.');
+    print('Tipos permitidos: ${tiposPermitidos.join(', ')}');
+    return;
+  }
+
   if (noches == null || noches <= 0) {
     print('Error: las noches deben ser mayores que cero');
     return;
   }
 
-  if (precio == null || noches <= 0) {
+  if (precio == null || precio <= 0) {
     print('Error: el precio debe ser mayor que cero.');
     return;
   }
@@ -206,14 +217,19 @@ void modificarReserva() {
   cantidadPorTipoHabitacion[tipoAnterior] =
       cantidadPorTipoHabitacion[tipoAnterior]! - 1;
 
-  if (cantidadPorTipoHabitacion[tipoAnterior] == 0) {
-    cantidadPorTipoHabitacion.remove(tipoAnterior);
-  }
+  if (tipoAnterior != tipo) {
+    cantidadPorTipoHabitacion[tipoAnterior] =
+        cantidadPorTipoHabitacion[tipoAnterior]! - 1;
 
-  if (cantidadPorTipoHabitacion.containsKey(tipo)) {
-    cantidadPorTipoHabitacion[tipo] = cantidadPorTipoHabitacion[tipo]! + 1;
-  } else {
-    cantidadPorTipoHabitacion[tipo] = 1;
+    if (cantidadPorTipoHabitacion[tipoAnterior] == 0) {
+      cantidadPorTipoHabitacion.remove(tipoAnterior);
+    }
+
+    if (cantidadPorTipoHabitacion.containsKey(tipo)) {
+      cantidadPorTipoHabitacion[tipo] = cantidadPorTipoHabitacion[tipo]! + 1;
+    } else {
+      cantidadPorTipoHabitacion[tipo] = 1;
+    }
   }
 
   print('\nReserva modificada correctamente.');
